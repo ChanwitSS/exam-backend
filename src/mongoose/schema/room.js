@@ -1,10 +1,8 @@
-// import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
+import { MessageSchema } from './message';
 
-// const roomSchema = new Schema({
-//   name: String,
-//   category: String,
-//   price: Number,
-//   tags: [String],
-// });
+export const RoomSchema = new Schema({
+  roomName: String,
+});
 
-// const RoomModel = mongoose.model('Product', productSchema);
+export const RoomModel = mongoose.model('Room', RoomSchema);
