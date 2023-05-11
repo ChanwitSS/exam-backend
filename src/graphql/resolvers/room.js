@@ -3,15 +3,17 @@ import { RoomModel } from '../../mongoose/schema/room';
 export default {
   Mutation: {
     createRoom: async (parent, { roomName }) => {
-    //   await RoomModel.findOneAndUpdate(
-    //     { roomName },
-    //     { roomName, messages: [] },
-    //     { upsert: true }
-    //   );
-      console.log('roomName')
-      return {
-        successful: true,
-      };
+      const room = await RoomModel.findOne({ roomName });
+      if (room) {
+        return {
+          successful: false,
+        };
+      } else {
+        await RoomModel.create({ roomName });
+        return {
+          successful: true,
+        };
+      }
     },
   },
 };

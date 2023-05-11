@@ -2,14 +2,9 @@ import { ApolloServer, gql } from 'apollo-server';
 import { typeDefs } from './graphql/typedefs';
 import { resolvers } from './graphql/resolvers';
 import mongoose from 'mongoose';
+import * as dotenv from 'dotenv'
 
-// const initMongoDB = () => {
-//   mongoose.set('strictQuery', true);
-//   mongoose.connect('mongodb://localhost:27017/node-api-101', {
-//     useNewUrlParser: true,
-//   });
-// };
-
+dotenv.config()
 const server = new ApolloServer({
   typeDefs: gql`
     ${typeDefs}
@@ -31,7 +26,7 @@ const server = new ApolloServer({
 
 mongoose.set('strictQuery', true);
 mongoose.connect(
-  'mongodb://mongo:mongo@127.0.0.1:27017/sale_here_mongo?authSource=admin',
+  process.env.MONGO_URI,
   {
     useNewUrlParser: true,
   }
