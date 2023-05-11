@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  mongo:
+    container_name: sale_here_mongo
+    image: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_DATABASE=sale_here
+      - MONGO_INITDB_ROOT_USERNAME=mongo
+      - MONGO_INITDB_ROOT_PASSWORD=mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./exam-backend/db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js

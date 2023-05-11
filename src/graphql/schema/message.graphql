@@ -1,8 +1,12 @@
+scalar Date
+
 type Message {
   id: String!
   body: String!
-  image: String
-  from: Sender!
+  image: String!
+  senderName: String!
+  roomName: String!
+  createAt: Date
 }
 
 type VoidResponse {
@@ -14,7 +18,11 @@ type Query {
 }
 
 type Mutation {
-  sendMessage(roomName: String!, message: String!): VoidResponse
+  sendMessage(
+    roomName: String!
+    message: String!
+    senderName: String!
+  ): VoidResponse
 }
 
 type Subscription {
