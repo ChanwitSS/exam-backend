@@ -1,7 +1,7 @@
 import set from 'lodash/set';
 import get from 'lodash/get';
 import uuid from 'uuid/v1';
-// import pubsub from '../pubsub';
+import { pubsub } from '../pubsub';
 import mock from '../../mock';
 import { MessageModel } from '../../mongoose/schema/message';
 import { RoomModel } from '../../mongoose/schema/room';
@@ -28,7 +28,7 @@ export default {
       // });
 
       await MessageModel.create(newMessage);
-      // pubsub.publish('NEW_MESSAGE', roomName, message);
+      pubsub.publish('NEW_MESSAGE', newMessage);
       return {
         successful: true,
       };
@@ -44,12 +44,15 @@ export default {
   //     });
   //   },
   // },
-  // Subscription: {
-  //   newMessage: {
-  //     subscribe: (parent, { roomName }) =>
-  //       // pubsub.asyncIterator('NEW_MESSAGE', roomName),
-  //       pubsub.asyncIterator(['NEW_MESSAGE']),
-  //     resolve: (payload) => payload,
-  //   },
-  // },
+  Subscription: {
+    newMessage: {
+      subscribe: (parent, { roomName }) =>
+        // pubsub.asyncIterator('NEW_MESSAGE', roomName),
+        {
+          console.log('work')
+          return pubsub.asyncIterator(['NEW_MESSAGE']);
+        },
+      resolve: (payload) => payload,
+    },
+  },
 };
